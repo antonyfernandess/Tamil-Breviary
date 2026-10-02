@@ -13,7 +13,7 @@ import '../database/feast_row.dart';
 class SqliteFixedFeastCalendar implements LiturgicalCalendar {
   final List<FeastRow> _rows;
 
-  SqliteFixedFeastCalendar({required this._rows});
+  SqliteFixedFeastCalendar({required List<FeastRow> rows}) : _rows = List<FeastRow>.unmodifiable(rows);
 
   @override
   String get key => 'sqlite_fixed_feasts';

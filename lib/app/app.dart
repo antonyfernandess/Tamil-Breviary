@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import '../modules/liturgical_engine/application/celebration_generator.dart';
 import '../modules/liturgical_engine/application/liturgical_engine_impl.dart';
 import '../modules/liturgical_engine/application/services/calendar_service.dart';
@@ -11,8 +12,6 @@ import '../modules/liturgical_engine/infrastructure/calendars/sqlite_fixed_feast
 import '../modules/liturgical_engine/infrastructure/database/feast_repository.dart';
 import 'router.dart';
 
-/// The main entry point of the Catholic application, initializing the calendar service and setting up routing.
-/// 
 class CatholicApp extends StatefulWidget {
   const CatholicApp({super.key});
 
@@ -26,13 +25,12 @@ class _CatholicAppState extends State<CatholicApp> {
   @override
   void initState() {
     super.initState();
-    _calendarServiceFuture = _buildCalendarService(); /// Initializes the calendar service asynchronously when the widget is first created. _calenderServiceFuture is a Future that will complete with the CalendarService once it is built. When the build is complete it has all the c
+    _calendarServiceFuture = _buildCalendarService();
   }
 
   Future<CalendarService> _buildCalendarService() async {
     final feastRows = await FeastRepository().loadAll();
 
-    /// Create a CelebrationGenerator with the General Roman Calendar and any additional fixed feast calendars, applying precedence rules and calendar settings.
     final generator = CelebrationGenerator(
       calendars: [
         GeneralRomanCalendar(),
@@ -42,27 +40,6 @@ class _CatholicAppState extends State<CatholicApp> {
       settings: CalendarSettings.india,
     );
 
-    
-    /// Temporary test to verify that the calendar is generated correctly.
-    final calendarService = CalendarServiceImpl(
-      engine: LiturgicalEngineImpl(
-        generator: generator,
-        settings: CalendarSettings.india,
-      ),
-    );
-
-    // --- temporary test, remove after checking output ---
-    final year2026 = calendarService.getYear(2026);
-    print('Total days: ${year2026.days.length}');
-    for (final day in year2026.days) {
-      final dateStr = day.date.toIso8601String().substring(0, 10);
-      final optionals = day.optionalMemorials.map((m) => m.key.value).join(', ');
-      print('$dateStr  ${day.season.name.padRight(14)} wk:${day.weekOfSeason}  ${day.celebration.value}...'
-          '${optionals.isNotEmpty ? '  [or: $optionals]' : ''}');
-    }
-    // --- end temporary test ---
-
-    /// Return the constructed CalendarService for use in the application.
     return CalendarServiceImpl(
       engine: LiturgicalEngineImpl(
         generator: generator,

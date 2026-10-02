@@ -56,6 +56,9 @@ class LiturgicalSeasonCalculator {
       return LiturgicalSeason.christmas;
     }
 
+    // Easter season is defined as Easter Sunday through Pentecost Sunday inclusive.
+    // The earlier check already catches this range, so we do not need any extra logic here.
+
     // Everything else — after Baptism/before Ash Wednesday,
     // and after Pentecost/before Advent — is Ordinary Time.
     return LiturgicalSeason.ordinaryTime;

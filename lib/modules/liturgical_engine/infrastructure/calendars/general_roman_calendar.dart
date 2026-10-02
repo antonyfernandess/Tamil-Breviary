@@ -8,6 +8,7 @@ import '../../domain/rules/christ_the_king_rule.dart';
 import '../../domain/rules/corpus_christi_rule.dart';
 import '../../domain/rules/easter_based_rule.dart';
 import '../../domain/rules/epiphany_rule.dart';
+import '../../domain/rules/fixed_date_rule.dart';
 import '../../domain/value_objects/celebration_key.dart';
 
 class GeneralRomanCalendar implements LiturgicalCalendar {
@@ -18,6 +19,12 @@ class GeneralRomanCalendar implements LiturgicalCalendar {
   Iterable<CelebrationDefinition> celebrationsForYear(int year) => _celebrations;
 
   static final List<CelebrationDefinition> _celebrations = [
+    CelebrationDefinition(
+      key: CelebrationKey('nativity_of_the_lord'),
+      rule: FixedDateRule(month: 12, day: 25),
+      rank: LiturgicalRank.solemnity,
+      color: LiturgicalColor.white,
+    ),
     CelebrationDefinition(
       key: CelebrationKey('ash_wednesday'),
       rule: EasterBasedRule(offsetDays: -46),
