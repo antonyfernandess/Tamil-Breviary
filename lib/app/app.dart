@@ -98,26 +98,33 @@ class _CatholicAppState extends State<CatholicApp> {
             ),
           ],
           child: Consumer<AppLanguageController>(
-            builder: (context, language, _) => MaterialApp(
-              onGenerateTitle: (context) =>
-                  AppLocalizations.of(context)!.appTitle,
-              locale: language.locale,
-              localizationsDelegates:
-                  AppLocalizations.localizationsDelegates,
-              supportedLocales: AppLocalizations.supportedLocales,
-              debugShowCheckedModeBanner: false,
-              theme: ThemeData(
-                colorSchemeSeed: Colors.deepPurple,
-                useMaterial3: true,
-              ),
-              darkTheme: ThemeData(
-                colorSchemeSeed: Colors.deepPurple,
-                brightness: Brightness.dark,
-                useMaterial3: true,
-              ),
-              onGenerateRoute: AppRouter.onGenerateRoute,
-              initialRoute: AppRouter.home,
-            ),
+            builder: (context, language, _) {
+              final fontFamily = language.locale.languageCode == 'ta'
+                  ? 'NotoSansTamil'
+                  : null;
+
+              return MaterialApp(
+                onGenerateTitle: (context) =>
+                    AppLocalizations.of(context)!.appTitle,
+                locale: language.locale,
+                localizationsDelegates: AppLocalizations.localizationsDelegates,
+                supportedLocales: AppLocalizations.supportedLocales,
+                debugShowCheckedModeBanner: false,
+                theme: ThemeData(
+                  colorSchemeSeed: Colors.deepPurple,
+                  fontFamily: fontFamily,
+                  useMaterial3: true,
+                ),
+                darkTheme: ThemeData(
+                  colorSchemeSeed: Colors.deepPurple,
+                  brightness: Brightness.dark,
+                  fontFamily: fontFamily,
+                  useMaterial3: true,
+                ),
+                onGenerateRoute: AppRouter.onGenerateRoute,
+                initialRoute: AppRouter.home,
+              );
+            },
           ),
         );
       },
