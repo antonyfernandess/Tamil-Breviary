@@ -1,0 +1,158 @@
+{
+  "@@locale": "ta",
+  "appTitle": "கத்தோலிக்கம்",
+  "today": "இன்று",
+  "calendar": "நாள்காட்டி",
+  "readings": "வாசகங்கள்",
+  "settings": "அமைப்புகள்",
+  "liturgicalCalendar": "திருவழிபாட்டு நாள்காட்டி",
+  "previousYear": "முந்தைய ஆண்டு",
+  "nextYear": "அடுத்த ஆண்டு",
+  "settingsTitle": "அமைப்புகள்",
+  "language": "மொழி",
+  "languageDescription": "செயலியில் பயன்படுத்தப்படும் மொழியைத் தேர்ந்தெடுக்கவும்.",
+  "english": "ஆங்கிலம்",
+  "tamil": "தமிழ்",
+  "languageSaveError": "மொழி விருப்பத்தைச் சேமிக்க முடியவில்லை.",
+  "ashWednesday": "திருநீற்றுப் புதன்",
+  "weekdayAfterAshWednesday": "திருநீற்றுப் புதனுக்குப் பின் {weekday}",
+  "@weekdayAfterAshWednesday": {
+    "placeholders": {
+      "weekday": {}
+    }
+  },
+  "weekOfSeason": "{season} - {week}ஆம் வாரம், {weekday}",
+  "@weekOfSeason": {
+    "placeholders": {
+      "weekday": {},
+      "week": {},
+      "season": {}
+    }
+  },
+  "weekdayInSeason": "{season} - {weekday}",
+  "@weekdayInSeason": {
+    "placeholders": {
+      "weekday": {},
+      "season": {}
+    }
+  },
+  "advent": "திருவருகைக் காலம்",
+  "christmasTime": "கிறிஸ்து பிறப்புக் காலம்",
+  "lent": "தவக்காலம்",
+  "sacredTriduum": "புனித மூன்று நாள்",
+  "easterTime": "உயிர்ப்பு காலம்",
+  "ordinaryTime": "பொதுக்காலம்",
+  "sundayOfAdvent": "திருவருகைக் காலத்தின் {week}ஆம் ஞாயிறு",
+  "@sundayOfAdvent": {
+    "placeholders": {
+      "week": {}
+    }
+  },
+  "sundayOfChristmas": "கிறிஸ்து பிறப்புக் காலத்தின் {week}ஆம் ஞாயிறு",
+  "@sundayOfChristmas": {
+    "placeholders": {
+      "week": {}
+    }
+  },
+  "sundayOfLent": "தவக்காலத்தின் {week}ஆம் ஞாயிறு",
+  "@sundayOfLent": {
+    "placeholders": {
+      "week": {}
+    }
+  },
+  "sundayOfTriduum": "புனித மூன்று நாள் காலத்தின் {week}ஆம் ஞாயிறு",
+  "@sundayOfTriduum": {
+    "placeholders": {
+      "week": {}
+    }
+  },
+  "sundayOfEaster": "உயிர்ப்பு காலத்தின் {week}ஆம் ஞாயிறு",
+  "@sundayOfEaster": {
+    "placeholders": {
+      "week": {}
+    }
+  },
+  "sundayOfOrdinaryTime": "பொதுக்காலத்தின் {week}ஆம் ஞாயிறு",
+  "@sundayOfOrdinaryTime": {
+    "placeholders": {
+      "week": {}
+    }
+  },
+  "solemnity": "பெருவிழா",
+  "feast": "விழா",
+  "memorial": "நினைவுநாள்",
+  "optionalMemorial": "விருப்ப நினைவுநாள்",
+  "commemoration": "நினைவுகூர்தல்",
+  "weekdayRank": "வாரநாள்",
+  "orMemorial": "அல்லது {celebration}",
+  "@orMemorial": {
+    "placeholders": {
+      "celebration": {}
+    }
+  },
+  "nativityOfTheLord": "ஆண்டவரின் பிறப்பு",
+  "palmSunday": "ஆண்டவரின் திருப்பாடுகளின் குருத்து ஞாயிறு",
+  "holyThursday": "புனித வியாழன்",
+  "goodFriday": "ஆண்டவரின் திருப்பாடுகளின் வெள்ளி",
+  "easterSunday": "ஆண்டவரின் உயிர்ப்பு ஞாயிறு",
+  "ascension": "ஆண்டவரின் விண்ணேற்றம்",
+  "pentecost": "பெந்தக்கோஸ்து ஞாயிறு",
+  "trinitySunday": "மிகத் தூய மூவொரு இறைவன்",
+  "corpusChristi": "கிறிஸ்துவின் திருவுடல் திருஇரத்தம்",
+  "epiphany": "ஆண்டவரின் திருக்காட்சி",
+  "baptismOfTheLord": "ஆண்டவரின் திருமுழுக்கு",
+  "christTheKing": "அகில உலக அரசர் நம் ஆண்டவர் இயேசு கிறிஸ்து",
+  "presentationOfTheLord": "ஆண்டவரைக் கோவிலில் காணிக்கையாக அர்ப்பணித்தல்",
+  "saintJoseph": "தூய யோசேப்பு, அன்னை மரியாவின் துணைவர்",
+  "annunciation": "ஆண்டவரின் அறிவிப்பு",
+  "saintMark": "தூய மாற்கு, நற்செய்தியாளர்",
+  "saintPhilipAndSaintJames": "தூய பிலிப்பு மற்றும் தூய யாக்கோபு, திருத்தூதர்கள்",
+  "saintMatthias": "தூய மத்தியா, திருத்தூதர்",
+  "nativityOfSaintJohnTheBaptist": "திருமுழுக்கு யோவானின் பிறப்பு",
+  "saintsPeterAndPaul": "தூய பேதுரு மற்றும் தூய பவுல், திருத்தூதர்கள்",
+  "saintMaryMagdalene": "தூய மகதலா மரியா",
+  "saintJames": "தூய யாக்கோபு, திருத்தூதர்",
+  "transfiguration": "ஆண்டவரின் உருமாற்றம்",
+  "assumption": "அன்னை மரியாவின் விண்ணேற்பு",
+  "nativityOfMary": "அன்னை மரியாவின் பிறப்பு",
+  "exaltationOfTheCross": "திருச்சிலுவையின் மேன்மை",
+  "ourLadyOfSorrows": "துயருறும் அன்னை மரியா",
+  "saintsMichaelGabrielRaphael": "தூய மிக்கேல், கபிரியேல், ரபேல், வானதூதர்கள்",
+  "allSaints": "அனைத்துப் புனிதர்கள்",
+  "allSouls": "இறைநம்பிக்கையில் இறந்த அனைவரின் நினைவு",
+  "dedicationOfLateranBasilica": "லாத்தரன் பெருங்கோவிலின் நேர்ந்தளிப்பு",
+  "saintAndrew": "தூய அந்திரேயா, திருத்தூதர்",
+  "immaculateConception": "அன்னை மரியாவின் அமல உற்பவம்",
+  "saintStephen": "தூய ஸ்தேவான், முதல் மறைசாட்சி",
+  "saintJohnApostle": "தூய யோவான், திருத்தூதரும் நற்செய்தியாளரும்",
+  "holyInnocents": "மாசில்லாக் குழந்தைகள், மறைசாட்சிகள்",
+  "holyFamily": "இயேசு, மரியா, யோசேப்பு அடங்கிய திருக்குடும்பம்",
+  "sacredHeart": "இயேசுவின் மிகத் தூய இதயம்",
+  "immaculateHeart": "அன்னை மரியாவின் மாசற்ற இதயம்",
+  "motherOfGod": "இறைவனின் தாய் அன்னை மரியா",
+  "guardianAngels": "புனித காவல் வானதூதர்கள்",
+  "holyNameOfMary": "அன்னை மரியாவின் மிகத் தூய பெயர்",
+  "ourLadyOfFatima": "பாத்திமா அன்னை",
+  "ourLadyOfGuadalupe": "குவாதலூப்பே அன்னை",
+  "ourLadyOfLourdes": "லூர்து அன்னை",
+  "ourLadyOfMountCarmel": "கார்மேல் மலை அன்னை",
+  "ourLadyOfTheRosary": "செபமாலை அன்னை",
+  "presentationOfMary": "அன்னை மரியாவின் ஆலய அர்ப்பணம்",
+  "queenshipOfMary": "அன்னை மரியாவின் அரசத் தன்மை",
+  "birthOfJohnTheBaptist": "திருமுழுக்கு யோவானின் பிறப்பு",
+  "saintThomas": "தூய தோமையார், திருத்தூதர்",
+  "saintLuke": "தூய லூக்கா, நற்செய்தியாளர்",
+  "saintMatthew": "தூய மத்தேயு, திருத்தூதரும் நற்செய்தியாளரும்",
+  "saintAlphonsa": "அமல உற்பவ தூய அல்போன்சா",
+  "saintDevasahayam": "தூய தேவசகாயம் பிள்ளை, மறைசாட்சி",
+  "saintEuphrasia": "தூய யூப்ராசியா, கன்னியர்",
+  "saintFrancisXavier": "தூய பிரான்சிஸ் சவேரியார், குரு",
+  "saintGonsaloGarcia": "தூய கோன்சாலோ கார்சியா, மறைசாட்சி",
+  "saintJohnDeBrito": "தூய அருளானந்தர், குருவும் மறைசாட்சியும்",
+  "saintJosephVaz": "தூய யோசேப்பு வாஸ், குரு",
+  "saintKuriakoseChavara": "தூய குரியாக்கோஸ் எலியாஸ் சாவரா, குரு",
+  "saintTeresaOfCalcutta": "கல்கத்தா தூய தெரேசா",
+  "blessedAugustineThevarparambil": "அருளாளர் அகஸ்தீன் தேவர்பரம்பில், குரு",
+  "blessedMariaTheresaChiramel": "அருளாளர் மரியா தெரேசா சிரமேல், கன்னியர்",
+  "blessedRaniMaria": "அருளாளர் ராணி மரியா, கன்னியரும் மறைசாட்சியும்"
+}

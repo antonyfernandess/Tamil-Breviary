@@ -1,0 +1,158 @@
+{
+  "@@locale": "en",
+  "appTitle": "Catholic",
+  "today": "Today",
+  "calendar": "Calendar",
+  "readings": "Readings",
+  "settings": "Settings",
+  "liturgicalCalendar": "LITURGICAL CALENDAR",
+  "previousYear": "Previous year",
+  "nextYear": "Next year",
+  "settingsTitle": "Settings",
+  "language": "Language",
+  "languageDescription": "Choose the language used throughout the app.",
+  "english": "English",
+  "tamil": "Tamil",
+  "languageSaveError": "Could not save your language preference.",
+  "ashWednesday": "Ash Wednesday",
+  "weekdayAfterAshWednesday": "{weekday} after Ash Wednesday",
+  "@weekdayAfterAshWednesday": {
+    "placeholders": {
+      "weekday": {}
+    }
+  },
+  "weekOfSeason": "{weekday} of week {week} in {season}",
+  "@weekOfSeason": {
+    "placeholders": {
+      "weekday": {},
+      "week": {},
+      "season": {}
+    }
+  },
+  "weekdayInSeason": "{weekday} in {season}",
+  "@weekdayInSeason": {
+    "placeholders": {
+      "weekday": {},
+      "season": {}
+    }
+  },
+  "advent": "Advent",
+  "christmasTime": "Christmas Time",
+  "lent": "Lent",
+  "sacredTriduum": "the Sacred Triduum",
+  "easterTime": "Easter Time",
+  "ordinaryTime": "Ordinary Time",
+  "sundayOfAdvent": "{week} Sunday of Advent",
+  "@sundayOfAdvent": {
+    "placeholders": {
+      "week": {}
+    }
+  },
+  "sundayOfChristmas": "{week} Sunday of Christmas",
+  "@sundayOfChristmas": {
+    "placeholders": {
+      "week": {}
+    }
+  },
+  "sundayOfLent": "{week} Sunday of Lent",
+  "@sundayOfLent": {
+    "placeholders": {
+      "week": {}
+    }
+  },
+  "sundayOfTriduum": "{week} Sunday of the Sacred Triduum",
+  "@sundayOfTriduum": {
+    "placeholders": {
+      "week": {}
+    }
+  },
+  "sundayOfEaster": "{week} Sunday of Easter",
+  "@sundayOfEaster": {
+    "placeholders": {
+      "week": {}
+    }
+  },
+  "sundayOfOrdinaryTime": "{week} Sunday in Ordinary Time",
+  "@sundayOfOrdinaryTime": {
+    "placeholders": {
+      "week": {}
+    }
+  },
+  "solemnity": "Solemnity",
+  "feast": "Feast",
+  "memorial": "Memorial",
+  "optionalMemorial": "Optional Memorial",
+  "commemoration": "Commemoration",
+  "weekdayRank": "Weekday",
+  "orMemorial": "or {celebration}",
+  "@orMemorial": {
+    "placeholders": {
+      "celebration": {}
+    }
+  },
+  "nativityOfTheLord": "The Nativity of the Lord",
+  "palmSunday": "Palm Sunday of the Passion of the Lord",
+  "holyThursday": "Holy Thursday",
+  "goodFriday": "Friday of the Passion of the Lord",
+  "easterSunday": "Easter Sunday",
+  "ascension": "The Ascension of the Lord",
+  "pentecost": "Pentecost Sunday",
+  "trinitySunday": "The Most Holy Trinity",
+  "corpusChristi": "The Most Holy Body and Blood of Christ",
+  "epiphany": "The Epiphany of the Lord",
+  "baptismOfTheLord": "The Baptism of the Lord",
+  "christTheKing": "Our Lord Jesus Christ, King of the Universe",
+  "presentationOfTheLord": "The Presentation of the Lord",
+  "saintJoseph": "Saint Joseph, Spouse of the Blessed Virgin Mary",
+  "annunciation": "The Annunciation of the Lord",
+  "saintMark": "Saint Mark, Evangelist",
+  "saintPhilipAndSaintJames": "Saints Philip and James, Apostles",
+  "saintMatthias": "Saint Matthias, Apostle",
+  "nativityOfSaintJohnTheBaptist": "The Nativity of Saint John the Baptist",
+  "saintsPeterAndPaul": "Saints Peter and Paul, Apostles",
+  "saintMaryMagdalene": "Saint Mary Magdalene",
+  "saintJames": "Saint James, Apostle",
+  "transfiguration": "The Transfiguration of the Lord",
+  "assumption": "The Assumption of the Blessed Virgin Mary",
+  "nativityOfMary": "The Nativity of the Blessed Virgin Mary",
+  "exaltationOfTheCross": "The Exaltation of the Holy Cross",
+  "ourLadyOfSorrows": "Our Lady of Sorrows",
+  "saintsMichaelGabrielRaphael": "Saints Michael, Gabriel and Raphael, Archangels",
+  "allSaints": "All Saints",
+  "allSouls": "The Commemoration of All the Faithful Departed",
+  "dedicationOfLateranBasilica": "The Dedication of the Lateran Basilica",
+  "saintAndrew": "Saint Andrew, Apostle",
+  "immaculateConception": "The Immaculate Conception of the Blessed Virgin Mary",
+  "saintStephen": "Saint Stephen, the First Martyr",
+  "saintJohnApostle": "Saint John, Apostle and Evangelist",
+  "holyInnocents": "The Holy Innocents, Martyrs",
+  "holyFamily": "The Holy Family of Jesus, Mary and Joseph",
+  "sacredHeart": "The Most Sacred Heart of Jesus",
+  "immaculateHeart": "The Immaculate Heart of the Blessed Virgin Mary",
+  "motherOfGod": "Mary, the Mother of God",
+  "guardianAngels": "The Holy Guardian Angels",
+  "holyNameOfMary": "The Most Holy Name of the Blessed Virgin Mary",
+  "ourLadyOfFatima": "Our Lady of Fatima",
+  "ourLadyOfGuadalupe": "Our Lady of Guadalupe",
+  "ourLadyOfLourdes": "Our Lady of Lourdes",
+  "ourLadyOfMountCarmel": "Our Lady of Mount Carmel",
+  "ourLadyOfTheRosary": "Our Lady of the Rosary",
+  "presentationOfMary": "The Presentation of the Blessed Virgin Mary",
+  "queenshipOfMary": "The Queenship of the Blessed Virgin Mary",
+  "birthOfJohnTheBaptist": "The Nativity of Saint John the Baptist",
+  "saintThomas": "Saint Thomas the Apostle",
+  "saintLuke": "Saint Luke the Evangelist",
+  "saintMatthew": "Saint Matthew the Evangelist",
+  "saintAlphonsa": "Saint Alphonsa of the Immaculate Conception",
+  "saintDevasahayam": "Saint Devasahayam Pillai, martyr",
+  "saintEuphrasia": "Saint Euphrasia, virgin",
+  "saintFrancisXavier": "Saint Francis Xavier, priest",
+  "saintGonsaloGarcia": "Saint Gonsalo Garcia, martyr",
+  "saintJohnDeBrito": "Saint John de Brito, priest and martyr",
+  "saintJosephVaz": "Saint Joseph Vaz, priest",
+  "saintKuriakoseChavara": "Saint Kuriakose Elias Chavara, priest",
+  "saintTeresaOfCalcutta": "Saint Teresa of Calcutta, virgin",
+  "blessedAugustineThevarparambil": "Blessed Augustine Thevarparambil, priest",
+  "blessedMariaTheresaChiramel": "Blessed Maria Theresa Chiramel, virgin",
+  "blessedRaniMaria": "Blessed Rani Maria, virgin and martyr"
+}
