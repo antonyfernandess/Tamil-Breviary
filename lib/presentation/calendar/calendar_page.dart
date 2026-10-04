@@ -3,13 +3,14 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../../l10n/generated/app_localizations.dart';
-import '../../modules/liturgical_engine/domain/calculations/easter/easter_calculator.dart';
 import '../../modules/liturgical_engine/application/services/calendar_service.dart';
+import '../../modules/liturgical_engine/domain/calculations/easter/easter_algorithm.dart';
 import '../../modules/liturgical_engine/domain/entities/liturgical_day.dart';
 import '../../modules/liturgical_engine/domain/enums/liturgical_color.dart';
 import '../../modules/liturgical_engine/domain/enums/liturgical_rank.dart';
 import '../../modules/liturgical_engine/domain/enums/liturgical_season.dart';
 import '../widgets/bottom_nav_bar.dart';
+import 'celebration_names.dart';
 
 class CalendarPage extends StatefulWidget {
   const CalendarPage({super.key});
@@ -91,11 +92,17 @@ class _CalendarPageState extends State<CalendarPage> {
   }
 
   void _changeYear(int amount) {
+    final next = _year + amount;
+    // The Easter algorithm is only defined for Gregorian years.
+    if (next < EasterAlgorithm.minYear || next > EasterAlgorithm.maxYear) {
+      return;
+    }
+
     if (_scrollController.hasClients) {
       _scrollController.jumpTo(0);
     }
     setState(() {
-      _year += amount;
+      _year = next;
       _selectedDate = DateTime(_year, 1, 1);
     });
   }
@@ -260,7 +267,8 @@ class _CalendarDayRow extends StatelessWidget {
     final isEmphasized =
         day.date.weekday == DateTime.sunday ||
         day.rank == LiturgicalRank.solemnity ||
-        day.rank == LiturgicalRank.feast;
+        day.rank == LiturgicalRank.feast ||
+        day.rank == LiturgicalRank.feastOfTheLord;
 
     return Material(
       color: selected ? const Color(0xFFBCEFF0) : const Color(0xFFF3F3F3),
@@ -317,7 +325,8 @@ class _CalendarDayRow extends StatelessWidget {
                       textAlign: TextAlign.center,
                       style: const TextStyle(fontSize: 18, height: 1.35),
                     ),
-                    if (day.rank != LiturgicalRank.feria) ...[
+                    if (day.rank != LiturgicalRank.feria &&
+                        day.rank != LiturgicalRank.privilegedDay) ...[
                       const SizedBox(height: 2),
                       Text(
                         '- ${_rankLabel(day.rank, strings)}',
@@ -337,7 +346,11 @@ class _CalendarDayRow extends StatelessWidget {
                           children: [
                             TextSpan(
                               text: strings.orMemorial(
-                                _celebrationName(memorial.key.value, strings),
+                                celebrationName(
+          memorial.key.value,
+          strings,
+          fallbackName: memorial.displayName,
+        ),
                               ),
                             ),
                             const WidgetSpan(child: SizedBox(width: 5)),
@@ -393,29 +406,25 @@ String _celebrationTitle(
   final week = day.weekOfSeason;
   final season = _seasonName(day, strings);
 
-  final easter = EasterCalculator.forYear(day.date.year);
-  final ashWednesday = DateTime(easter.year, easter.month, easter.day - 46);
-  for (var offset = 1; offset <= 3; offset++) {
-    final dateAfterAshWednesday = DateTime(
-      ashWednesday.year,
-      ashWednesday.month,
-      ashWednesday.day + offset,
-    );
-    if (_isSameDate(day.date, dateAfterAshWednesday)) {
-      return strings.weekdayAfterAshWednesday(weekday);
+  if (key.startsWith('after_ash_wednesday_')) {
+    return strings.weekdayAfterAshWednesday(weekday);
+  }
+
+  // Only the generic filler days (rank feria) are named by season and week.
+  // Named celebrations such as palm_sunday, easter_sunday or trinity_sunday
+  // also end in '_sunday' and must keep their own names.
+  if (day.rank == LiturgicalRank.feria) {
+    if (key.endsWith('_sunday')) {
+      return _sundayName(day, week, strings);
+    }
+
+    if (key.endsWith('_feria')) {
+      if (week == null) return strings.weekdayInSeason(weekday, season);
+      return strings.weekOfSeason(weekday, _number(week, localeName), season);
     }
   }
 
-  if (key.endsWith('_sunday')) {
-    return _sundayName(day, week, strings);
-  }
-
-  if (key.endsWith('_feria')) {
-    if (week == null) return strings.weekdayInSeason(weekday, season);
-    return strings.weekOfSeason(weekday, _number(week, localeName), season);
-  }
-
-  return _celebrationName(key, strings);
+  return celebrationName(key, strings, fallbackName: day.displayName);
 }
 
 String _sundayName(LiturgicalDay day, int? week, AppLocalizations strings) {
@@ -445,7 +454,9 @@ String _seasonName(LiturgicalDay day, AppLocalizations strings) {
 
 String _rankLabel(LiturgicalRank rank, AppLocalizations strings) {
   return switch (rank) {
+    LiturgicalRank.privilegedDay => strings.weekdayRank,
     LiturgicalRank.solemnity => strings.solemnity,
+    LiturgicalRank.feastOfTheLord => strings.feast,
     LiturgicalRank.feast => strings.feast,
     LiturgicalRank.memorial => strings.memorial,
     LiturgicalRank.optionalMemorial => strings.optionalMemorial,
@@ -471,97 +482,6 @@ String _ordinalText(int value, String localeName) {
           _ => 'th',
         };
   return '$number$suffix';
-}
-
-String _celebrationName(String key, AppLocalizations strings) {
-  return switch (key) {
-    'nativity_of_the_lord' => strings.nativityOfTheLord,
-    'ash_wednesday' => strings.ashWednesday,
-    'palm_sunday' => strings.palmSunday,
-    'holy_thursday' => strings.holyThursday,
-    'good_friday' => strings.goodFriday,
-    'easter_sunday' => strings.easterSunday,
-    'ascension' => strings.ascension,
-    'pentecost' => strings.pentecost,
-    'trinity_sunday' => strings.trinitySunday,
-    'corpus_christi' => strings.corpusChristi,
-    'epiphany' => strings.epiphany,
-    'baptism_of_the_lord' => strings.baptismOfTheLord,
-    'christ_the_king' => strings.christTheKing,
-    'presentation_of_the_lord' => strings.presentationOfTheLord,
-    'saint_joseph' => strings.saintJoseph,
-    'annunciation' => strings.annunciation,
-    'saint_mark' => strings.saintMark,
-    'saints_philip_and_james' => strings.saintPhilipAndSaintJames,
-    'saint_matthias' => strings.saintMatthias,
-    'nativity_of_saint_john_the_baptist' =>
-      strings.nativityOfSaintJohnTheBaptist,
-    'saints_peter_and_paul' => strings.saintsPeterAndPaul,
-    'saint_mary_magdalene' => strings.saintMaryMagdalene,
-    'saint_james' => strings.saintJames,
-    'transfiguration_of_the_lord' => strings.transfiguration,
-    'assumption_of_the_blessed_virgin_mary' => strings.assumption,
-    'nativity_of_the_blessed_virgin_mary' => strings.nativityOfMary,
-    'exaltation_of_the_holy_cross' => strings.exaltationOfTheCross,
-    'our_lady_of_sorrows' => strings.ourLadyOfSorrows,
-    'saints_michael_gabriel_and_raphael' => strings.saintsMichaelGabrielRaphael,
-    'all_saints' => strings.allSaints,
-    'all_souls' => strings.allSouls,
-    'dedication_of_the_lateran_basilica' => strings.dedicationOfLateranBasilica,
-    'saint_andrew' => strings.saintAndrew,
-    'immaculate_conception' => strings.immaculateConception,
-    'saint_stephen' => strings.saintStephen,
-    'saint_john' => strings.saintJohnApostle,
-    'holy_innocents' => strings.holyInnocents,
-    'holy_innocents_martyrs' => strings.holyInnocents,
-    'holy_family' => strings.holyFamily,
-    'sacred_heart_of_jesus' => strings.sacredHeart,
-    'immaculate_heart_of_mary' => strings.immaculateHeart,
-    'mary_the_mother_of_god' => strings.motherOfGod,
-    'guardian_angels' => strings.guardianAngels,
-    'holy_name_of_the_blessed_virgin_mary' => strings.holyNameOfMary,
-    'our_lady_of_fatima' => strings.ourLadyOfFatima,
-    'our_lady_of_guadalupe' => strings.ourLadyOfGuadalupe,
-    'our_lady_of_lourdes' => strings.ourLadyOfLourdes,
-    'our_lady_of_mount_carmel' => strings.ourLadyOfMountCarmel,
-    'our_lady_of_the_rosary' => strings.ourLadyOfTheRosary,
-    'presentation_of_the_blessed_virgin_mary' => strings.presentationOfMary,
-    'queenship_of_blessed_virgin_mary' => strings.queenshipOfMary,
-    'birth_of_saint_john_the_baptist' => strings.birthOfJohnTheBaptist,
-    'birth_of_the_blessed_virgin_mary' => strings.nativityOfMary,
-    'saint_thomas_the_apostle' => strings.saintThomas,
-    'in_saint_thomas_the_apostle' => strings.saintThomas,
-    'saint_andrew_the_apostle' => strings.saintAndrew,
-    'saint_mark_the_evangelist' => strings.saintMark,
-    'saint_john_the_apostle_and_evangelist' => strings.saintJohnApostle,
-    'saint_luke_the_evangelist' => strings.saintLuke,
-    'saint_matthew_the_evangelist_apostle_evangelist' => strings.saintMatthew,
-    'saint_joseph_husband_of_the_blessed_virgin_mary' => strings.saintJoseph,
-    'in_blessed_augustine_thevarparambil_priest' =>
-      strings.blessedAugustineThevarparambil,
-    'in_blessed_maria_theresa_chiramel_virgin' =>
-      strings.blessedMariaTheresaChiramel,
-    'in_blessed_rani_maria_virgin_martyr' => strings.blessedRaniMaria,
-    'in_saint_alphonsa_of_the_immaculate_conception_alphonsa_muttathupadathu_virgin' =>
-      strings.saintAlphonsa,
-    'in_saint_devasahayam_pillai_martyr' => strings.saintDevasahayam,
-    'in_saint_euphrasia_virgin' => strings.saintEuphrasia,
-    'in_saint_francis_xavier_priest' => strings.saintFrancisXavier,
-    'in_saint_gonsalo_garcia_martyr' => strings.saintGonsaloGarcia,
-    'in_saint_john_de_brito_priest_and_martyr' => strings.saintJohnDeBrito,
-    'in_saint_joseph_vaz_priest' => strings.saintJosephVaz,
-    'in_saint_kuriakose_elias_chavara_priest' => strings.saintKuriakoseChavara,
-    'in_saint_teresa_of_calcutta_virgin' => strings.saintTeresaOfCalcutta,
-    _ => _titleCase(key.replaceAll('_', ' ')),
-  };
-}
-
-String _titleCase(String value) {
-  return value
-      .split(' ')
-      .where((word) => word.isNotEmpty)
-      .map((word) => '${word[0].toUpperCase()}${word.substring(1)}')
-      .join(' ');
 }
 
 Color _colorFor(LiturgicalColor color) {

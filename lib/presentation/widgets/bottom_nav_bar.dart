@@ -24,7 +24,12 @@ class BottomNavBar extends StatelessWidget {
         active: selectedTab == 'calendar',
         onTap: () => _navigate(context, AppRouter.calendar),
       ),
-      _BottomNavItem(icon: Icons.menu_book_rounded, label: strings.readings),
+      // Not built yet: shown dimmed and inert instead of looking tappable.
+      _BottomNavItem(
+        icon: Icons.menu_book_rounded,
+        label: strings.readings,
+        enabled: false,
+      ),
       // _BottomNavItem(icon: Icons.favorite_border_rounded, label: 'Devotions'),
       _BottomNavItem(
         icon: Icons.settings_outlined,
@@ -66,47 +71,47 @@ class _BottomNavItem extends StatelessWidget {
     required this.icon,
     required this.label,
     this.active = false,
+    this.enabled = true,
     this.onTap,
   });
 
   final IconData icon;
   final String label;
   final bool active;
+  final bool enabled;
   final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
+    final color = active ? const Color(0xFF0A2F27) : const Color(0xFF567068);
+
     return Semantics(
       button: onTap != null,
+      enabled: enabled,
       selected: active,
       label: label,
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(16),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                icon,
-                size: 26,
-                color: active
-                    ? const Color(0xFF0A2F27)
-                    : const Color(0xFF567068),
-              ),
-              const SizedBox(height: 5),
-              Text(
-                label,
-                style: TextStyle(
-                  fontSize: 11,
-                  fontWeight: active ? FontWeight.w800 : FontWeight.w600,
-                  color: active
-                      ? const Color(0xFF0A2F27)
-                      : const Color(0xFF567068),
+      child: Opacity(
+        opacity: enabled ? 1 : 0.4,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(16),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(icon, size: 26, color: color),
+                const SizedBox(height: 5),
+                Text(
+                  label,
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: active ? FontWeight.w800 : FontWeight.w600,
+                    color: color,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

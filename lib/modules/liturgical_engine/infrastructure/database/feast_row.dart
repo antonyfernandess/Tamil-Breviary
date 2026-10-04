@@ -1,4 +1,3 @@
-
 /// A row in the feasts table, representing a single feast day.
 class FeastRow {
   final int month;

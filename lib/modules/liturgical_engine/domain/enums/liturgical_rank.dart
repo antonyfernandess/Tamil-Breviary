@@ -1,5 +1,7 @@
 enum LiturgicalRank {
+  privilegedDay,
   solemnity,
+  feastOfTheLord,
   feast,
   memorial,
   optionalMemorial,

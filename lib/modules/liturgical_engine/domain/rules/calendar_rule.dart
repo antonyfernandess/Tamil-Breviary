@@ -1,5 +1,3 @@
-
-
 import '../value_objects/calendar_context.dart';
 
 abstract interface class CalendarRule{

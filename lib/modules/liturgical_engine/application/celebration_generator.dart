@@ -1,4 +1,4 @@
-import 'package:catholic/modules/liturgical_engine/application/services/liturgical_precedence.dart';
+import 'services/liturgical_precedence.dart';
 import '../domain/definitions/celebration_definition.dart';
 import '../domain/definitions/liturgical_calendar.dart';
 import '../domain/entities/celebration.dart';
@@ -46,10 +46,19 @@ class CelebrationGenerator {
           definitions
               .where((d) => d.rank != LiturgicalRank.optionalMemorial)
               .toList()
-            ..sort(precedence.compare);
+            ..sort((a, b) {
+              final rankOrder = precedence.compare(a, b);
+              return rankOrder != 0
+                  ? rankOrder
+                  : a.key.value.compareTo(b.key.value);
+            });
 
       if (obligatory.isNotEmpty) {
-        return ResolvedCelebrations(date: entry.key, primary: obligatory.first);
+        return ResolvedCelebrations(
+          date: entry.key,
+          primary: obligatory.first,
+          additionalObligatory: obligatory.skip(1).toList(),
+        );
       }
 
       final optionals = definitions
@@ -64,6 +73,6 @@ class CelebrationGenerator {
   }
 
   DateTime _normalize(DateTime date) {
-    return DateTime(date.year, date.month, date.day);
+    return DateTime.utc(date.year, date.month, date.day);
   }
 }

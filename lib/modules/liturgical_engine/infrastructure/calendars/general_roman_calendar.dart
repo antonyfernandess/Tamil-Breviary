@@ -1,4 +1,4 @@
-import 'package:catholic/modules/liturgical_engine/domain/definitions/liturgical_calendar.dart';
+import '../../domain/definitions/liturgical_calendar.dart';
 import '../../domain/definitions/celebration_definition.dart';
 import '../../domain/enums/liturgical_color.dart';
 import '../../domain/enums/liturgical_rank.dart';
@@ -9,6 +9,7 @@ import '../../domain/rules/corpus_christi_rule.dart';
 import '../../domain/rules/easter_based_rule.dart';
 import '../../domain/rules/epiphany_rule.dart';
 import '../../domain/rules/fixed_date_rule.dart';
+import '../../domain/rules/holy_family_rule.dart';
 import '../../domain/value_objects/celebration_key.dart';
 
 class GeneralRomanCalendar implements LiturgicalCalendar {
@@ -28,7 +29,7 @@ class GeneralRomanCalendar implements LiturgicalCalendar {
     CelebrationDefinition(
       key: CelebrationKey('ash_wednesday'),
       rule: EasterBasedRule(offsetDays: -46),
-      rank: LiturgicalRank.feria,
+      rank: LiturgicalRank.privilegedDay,
       color: LiturgicalColor.violet,
     ),
     CelebrationDefinition(
@@ -88,13 +89,37 @@ class GeneralRomanCalendar implements LiturgicalCalendar {
     CelebrationDefinition(
       key: CelebrationKey('baptism_of_the_lord'),
       rule: const BaptismOfTheLordRule(),
-      rank: LiturgicalRank.feast,
+      rank: LiturgicalRank.feastOfTheLord,
       color: LiturgicalColor.white,
     ),
     CelebrationDefinition(
       key: CelebrationKey('christ_the_king'),
       rule: const ChristTheKingRule(),
       rank: LiturgicalRank.solemnity,
+      color: LiturgicalColor.white,
+    ),
+    CelebrationDefinition(
+      key: CelebrationKey('holy_family'),
+      rule: const HolyFamilyRule(),
+      rank: LiturgicalRank.feastOfTheLord,
+      color: LiturgicalColor.white,
+    ),
+    CelebrationDefinition(
+      key: CelebrationKey('sacred_heart_of_jesus'),
+      rule: EasterBasedRule(offsetDays: 68),
+      rank: LiturgicalRank.solemnity,
+      color: LiturgicalColor.white,
+    ),
+    CelebrationDefinition(
+      key: CelebrationKey('immaculate_heart_of_mary'),
+      rule: EasterBasedRule(offsetDays: 69),
+      rank: LiturgicalRank.memorial,
+      color: LiturgicalColor.white,
+    ),
+    CelebrationDefinition(
+      key: CelebrationKey('mary_mother_of_the_church'),
+      rule: EasterBasedRule(offsetDays: 50),
+      rank: LiturgicalRank.memorial,
       color: LiturgicalColor.white,
     ),
   ];

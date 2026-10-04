@@ -55,7 +55,6 @@ class _CatholicAppState extends State<CatholicApp> {
     return CalendarServiceImpl(
       engine: LiturgicalEngineImpl(
         generator: generator,
-        settings: CalendarSettings.india,
       ),
     );
   }

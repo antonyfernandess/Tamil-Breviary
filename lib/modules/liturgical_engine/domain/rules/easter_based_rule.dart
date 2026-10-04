@@ -1,5 +1,5 @@
-import 'package:catholic/modules/liturgical_engine/domain/rules/calendar_rule.dart';
-import '../calculations/easter/easter_calculator.dart';
+import 'calendar_rule.dart';
+import '../calculations/liturgical_anchors.dart';
 import '../value_objects/calendar_context.dart';
 
 /// Resolves a date as an offset (in days) from Easter Sunday.
@@ -13,7 +13,14 @@ class EasterBasedRule implements CalendarRule {
 
   @override
   DateTime resolve(CalendarContext context) {
-    final easterSunday = EasterCalculator.forYear(context.year);
-    return easterSunday.add(Duration(days: offsetDays));
+    final easterSunday = LiturgicalAnchors.forYear(
+      context.year,
+      context.settings,
+    ).easter;
+    return DateTime.utc(
+      easterSunday.year,
+      easterSunday.month,
+      easterSunday.day + offsetDays,
+    );
   }
 }

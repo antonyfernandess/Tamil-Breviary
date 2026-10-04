@@ -263,6 +263,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'The Immaculate Heart of the Blessed Virgin Mary';
 
   @override
+  String get maryMotherOfTheChurch =>
+      'The Blessed Virgin Mary, Mother of the Church';
+
+  @override
   String get motherOfGod => 'Mary, the Mother of God';
 
   @override

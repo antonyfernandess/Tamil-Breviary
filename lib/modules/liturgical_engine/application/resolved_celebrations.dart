@@ -9,11 +9,13 @@ import '../domain/definitions/celebration_definition.dart';
 class ResolvedCelebrations {
   final DateTime date;
   final CelebrationDefinition? primary;
+  final List<CelebrationDefinition> additionalObligatory;
   final List<CelebrationDefinition> optionalMemorials;
 
   const ResolvedCelebrations({
     required this.date,
     required this.primary,
+    this.additionalObligatory = const [],
     this.optionalMemorials = const [],
   });
 }

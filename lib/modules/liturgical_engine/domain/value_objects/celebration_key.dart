@@ -1,5 +1,3 @@
-
-
 class CelebrationKey {
   final String value;
 

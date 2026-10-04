@@ -2,9 +2,25 @@ import 'easter_result.dart';
 
 /// Computes the date of Easter Sunday using the Anonymous Gregorian
 /// algorithm (also known as the Meeus/Jones/Butcher algorithm).
-/// Valid for any year in the Gregorian calendar (1583 onward).
+///
+/// Only valid for Gregorian years, i.e. [minYear] onward.
 class EasterAlgorithm {
+  const EasterAlgorithm._();
+
+  /// First year of the Gregorian calendar the algorithm is defined for.
+  static const int minYear = 1583;
+
+  /// Upper bound kept well inside the range of [DateTime].
+  static const int maxYear = 9999;
+
+  /// Returns the month and day of Easter Sunday for [year].
+  ///
+  /// Throws a [RangeError] when [year] is outside [minYear]..[maxYear].
   static EasterResult calculate(int year) {
+    if (year < minYear || year > maxYear) {
+      throw RangeError.range(year, minYear, maxYear, 'year');
+    }
+
     final a = year % 19;
     final b = year ~/ 100;
     final c = year % 100;
@@ -20,7 +36,6 @@ class EasterAlgorithm {
     final month = (h + l - 7 * m + 114) ~/ 31;
     final day = ((h + l - 7 * m + 114) % 31) + 1;
 
-    /// Returns an [EasterResult] containing the month and day of Easter Sunday for the given year.
     return EasterResult(month: month, day: day);
   }
 }

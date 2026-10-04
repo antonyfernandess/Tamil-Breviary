@@ -263,6 +263,9 @@ class AppLocalizationsTa extends AppLocalizations {
   String get immaculateHeart => 'அன்னை மரியாவின் மாசற்ற இதயம்';
 
   @override
+  String get maryMotherOfTheChurch => 'திருச்சபையின் தாயான தூய கன்னி மரியா';
+
+  @override
   String get motherOfGod => 'இறைவனின் தாய் அன்னை மரியா';
 
   @override

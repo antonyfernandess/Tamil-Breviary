@@ -1,13 +1,13 @@
+/// The month and day of Easter Sunday for a given Gregorian year.
 class EasterResult {
-  final int month;
-  final int day;
-  /// Represents the result of the Easter calculation, containing the month and day of Easter Sunday.
-  const EasterResult({
-    required this.month,
-    required this.day,
-  });
+  const EasterResult({required this.month, required this.day});
 
-  /// Returns a [DateTime] object representing Easter Sunday for the given year.
+  /// Month of Easter Sunday (3 = March, 4 = April).
+  final int month;
+
+  /// Day of the month of Easter Sunday.
+  final int day;
+
   @override
-  String toString() => 'EasterResult($month/$day)'; /// Returns a string representation of the EasterResult in the format "EasterResult(month/day)".
+  String toString() => 'EasterResult($month/$day)';
 }

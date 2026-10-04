@@ -1,4 +1,3 @@
-
 import '../definitions/celebration_definition.dart';
 
 class Celebration{

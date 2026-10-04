@@ -1,72 +1,56 @@
-import '../easter/easter_calculator.dart';
+import '../../enums/liturgical_season.dart';
+import '../../value_objects/calendar_settings.dart';
+import '../liturgical_anchors.dart';
+import '../liturgical_date.dart';
+import 'liturgical_season_calculator.dart';
 
-/// Determines whether a date is a "privileged" liturgical day per the
-/// Table of Liturgical Days (General Norms for the Liturgical Year,
-/// nn. 58-59). Privileged days outrank even solemnities of the
-/// General Roman Calendar; when a solemnity would fall on one, it
-/// must be transferred to the nearest free day (GNLY 60).
+/// Identifies the days that rank above solemnities in the Table of
+/// Liturgical Days (Christmas, Epiphany, Ascension, Pentecost, Ash
+/// Wednesday, Holy Week, the Easter Octave and the Sundays of Advent, Lent
+/// and Easter).
+///
+/// Sundays of Ordinary Time and of Christmas Time are deliberately *not*
+/// privileged: solemnities and feasts of the Lord take precedence over them.
 class PrivilegedDayCalculator {
-  static bool isPrivileged(DateTime date) {
-    final d = DateTime(date.year, date.month, date.day);
-    final easter = EasterCalculator.forYear(d.year);
+  const PrivilegedDayCalculator._();
 
-    if (d.month == 12 && d.day == 25) return true;
-    if (d == easter.add(const Duration(days: 39))) return true; // Ascension
-    if (d == easter.add(const Duration(days: 49))) return true; // Pentecost
-    if (d == easter.subtract(const Duration(days: 46))) return true; // Ash Wed
-    if (_isHolyWeekOrTriduum(d, easter)) return true;
-    if (_isWithinEasterOctave(d, easter)) return true;
-    if (_isSundayOfAdvent(d)) return true;
-    if (_isSundayOfLent(d, easter)) return true;
-    if (_isSundayOfEaster(d, easter)) return true;
+  static bool isPrivileged(
+    DateTime date, {
+    CalendarSettings settings = CalendarSettings.roman,
+  }) {
+    final day = LiturgicalDate.normalize(date);
+    final anchors = LiturgicalAnchors.forYear(day.year, settings);
+    final octaveEnd = LiturgicalDate.addDays(anchors.easter, 7);
+
+    if (day.month == 12 && day.day == 25) return true;
+    if (_isSameDate(day, anchors.epiphany)) return true;
+    if (_isSameDate(day, anchors.ascension)) return true;
+    if (_isSameDate(day, anchors.pentecost)) return true;
+    if (_isSameDate(day, anchors.ashWednesday)) return true;
+
+    // Palm Sunday through Holy Saturday.
+    if (!day.isBefore(anchors.palmSunday) && day.isBefore(anchors.easter)) {
+      return true;
+    }
+
+    // Easter Sunday through the Sunday of the octave.
+    if (!day.isBefore(anchors.easter) && !day.isAfter(octaveEnd)) return true;
+
+    if (day.weekday == DateTime.sunday) {
+      final season = LiturgicalSeasonCalculator.resolve(
+        day,
+        settings: settings,
+      );
+      return season == LiturgicalSeason.advent ||
+          season == LiturgicalSeason.lent ||
+          season == LiturgicalSeason.easter;
+    }
 
     return false;
   }
 
-  /// Returns true if the given date is within Holy Week or the Easter Triduum (from Palm Sunday to Holy Saturday).
-  static bool _isHolyWeekOrTriduum(DateTime d, DateTime easter) {
-    final palmSunday = easter.subtract(const Duration(days: 7));
-    return d.isAfter(palmSunday) && d.isBefore(easter);
-  }
-
-  /// Returns true if the given date is within the Easter Octave (from Easter Sunday to the following Sunday).
-  static bool _isWithinEasterOctave(DateTime d, DateTime easter) {
-    final octaveEnd = easter.add(const Duration(days: 7));
-    return !d.isBefore(easter) && !d.isAfter(octaveEnd);
-  }
-
-  /// Returns true if the given date is a Sunday of Advent (from the first Sunday of Advent to Christmas Eve).
-  static bool _isSundayOfAdvent(DateTime d) {
-    if (d.weekday != DateTime.sunday) return false;
-    final christmas = DateTime(d.year, 12, 25);
-    final adventStart = _firstAdventSunday(d.year);
-    return !d.isBefore(adventStart) && d.isBefore(christmas);
-  }
-
-  /// Returns true if the given date is a Sunday of Lent (from Ash Wednesday to Palm Sunday).
-  static bool _isSundayOfLent(DateTime d, DateTime easter) {
-    if (d.weekday != DateTime.sunday) return false;
-    final ashWednesday = easter.subtract(const Duration(days: 46));
-    final palmSunday = easter.subtract(const Duration(days: 7));
-    return !d.isBefore(ashWednesday) && !d.isAfter(palmSunday);
-  }
-
-  /// Returns true if the given date is a Sunday of Easter (from Easter Sunday to Pentecost).
-  static bool _isSundayOfEaster(DateTime d, DateTime easter) {
-    if (d.weekday != DateTime.sunday) return false;
-    final pentecost = easter.add(const Duration(days: 49));
-    return !d.isBefore(easter) && !d.isAfter(pentecost);
-  }
-
-  /// Returns the date of the first Sunday of Advent for the given year.
-  static DateTime _firstAdventSunday(int year) {
-    final christmas = DateTime(year, 12, 25);
-    final daysSincePrecedingSunday = christmas.weekday % 7;
-    final fourthAdventSunday = christmas.subtract(
-      Duration(days: daysSincePrecedingSunday),
-    );
-
-    /// Returns the date of the first Sunday of Advent, which is 21 days before the fourth Sunday of Advent (Christmas Eve).
-    return fourthAdventSunday.subtract(const Duration(days: 21));
-  }
+  static bool _isSameDate(DateTime first, DateTime second) =>
+      first.year == second.year &&
+      first.month == second.month &&
+      first.day == second.day;
 }

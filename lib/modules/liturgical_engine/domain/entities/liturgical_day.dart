@@ -1,4 +1,3 @@
-
 import '../enums/liturgical_color.dart';
 import '../enums/liturgical_rank.dart';
 import '../enums/liturgical_season.dart';
@@ -21,6 +20,9 @@ class LiturgicalDay {
 
   final int? weekOfSeason;
 
+  /// Fallback name when [celebration] has no localized string.
+  final String? displayName;
+
   const LiturgicalDay({
     required this.date,
     required this.celebration,
@@ -29,5 +31,6 @@ class LiturgicalDay {
     required this.color,
     this.optionalMemorials = const [],
     this.weekOfSeason,
+    this.displayName,
   });
 }

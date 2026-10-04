@@ -1,30 +1,24 @@
-
-
+import '../calculations/liturgical_date.dart';
 import 'liturgical_day.dart';
 
 class LiturgicalYear {
+  LiturgicalYear({required this.year});
+
   final int year;
 
   final Map<DateTime, LiturgicalDay> _days = {};
 
-  LiturgicalYear({
-    required this.year,
-  });
-
   void addDay(LiturgicalDay day) {
-    _days[_normalize(day.date)] = day;
+    _days[LiturgicalDate.normalize(day.date)] = day;
   }
 
   LiturgicalDay? getDay(DateTime date) {
-    return _days[_normalize(date)];
-  }
-  
-  DateTime _normalize(DateTime date) {
-    return DateTime(date.year, date.month, date.day);
+    return _days[LiturgicalDate.normalize(date)];
   }
 
   List<LiturgicalDay> get days {
-    final sorted = _days.values.toList()..sort((a, b) => a.date.compareTo(b.date));
+    final sorted = _days.values.toList()
+      ..sort((a, b) => a.date.compareTo(b.date));
     return sorted;
   }
 }

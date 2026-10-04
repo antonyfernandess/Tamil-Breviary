@@ -554,6 +554,12 @@ abstract class AppLocalizations {
   /// **'The Immaculate Heart of the Blessed Virgin Mary'**
   String get immaculateHeart;
 
+  /// No description provided for @maryMotherOfTheChurch.
+  ///
+  /// In en, this message translates to:
+  /// **'The Blessed Virgin Mary, Mother of the Church'**
+  String get maryMotherOfTheChurch;
+
   /// No description provided for @motherOfGod.
   ///
   /// In en, this message translates to:
