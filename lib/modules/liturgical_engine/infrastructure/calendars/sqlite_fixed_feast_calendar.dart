@@ -2,11 +2,11 @@ import 'dart:developer' as developer;
 
 import '../../domain/definitions/celebration_definition.dart';
 import '../../domain/definitions/liturgical_calendar.dart';
-import '../../domain/enums/liturgical_color.dart';
 import '../../domain/enums/liturgical_rank.dart';
 import '../../domain/rules/fixed_date_rule.dart';
 import '../../domain/value_objects/celebration_key.dart';
 import '../database/feast_row.dart';
+import 'feast_color_resolver.dart';
 
 /// A [LiturgicalCalendar] backed by feast data loaded from SQLite.
 ///
@@ -63,7 +63,7 @@ class SqliteFixedFeastCalendar implements LiturgicalCalendar {
       key: CelebrationKey(_slugify(row.name)),
       rule: FixedDateRule(month: row.month, day: row.day),
       rank: _mapRank(row),
-      color: _mapColor(row.name),
+      color: FeastColorResolver.resolve(row.name),
       displayName: _displayName(row.name),
     );
   }
@@ -105,11 +105,5 @@ class SqliteFixedFeastCalendar implements LiturgicalCalendar {
       level: 900,
     );
     return LiturgicalRank.optionalMemorial;
-  }
-
-  LiturgicalColor _mapColor(String name) {
-    return name.toLowerCase().contains('martyr')
-        ? LiturgicalColor.red
-        : LiturgicalColor.white;
   }
 }
