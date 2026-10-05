@@ -70,6 +70,11 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String weekdayOfHolyWeek(Object weekday) {
+    return '$weekday of Holy Week';
+  }
+
+  @override
   String get advent => 'Advent';
 
   @override

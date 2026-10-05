@@ -206,6 +206,12 @@ abstract class AppLocalizations {
   /// **'{weekday} in {season}'**
   String weekdayInSeason(Object weekday, Object season);
 
+  /// No description provided for @weekdayOfHolyWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'{weekday} of Holy Week'**
+  String weekdayOfHolyWeek(Object weekday);
+
   /// No description provided for @advent.
   ///
   /// In en, this message translates to:

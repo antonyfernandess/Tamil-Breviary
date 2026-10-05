@@ -9,8 +9,14 @@ import 'package:catholic/modules/liturgical_engine/infrastructure/calendars/sqli
 import 'package:catholic/modules/liturgical_engine/infrastructure/database/feast_row.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-FeastRow _row(int month, int day, String name, String type) =>
-    FeastRow(month: month, day: day, name: name, feastType: type);
+FeastRow _row(int month, int day, String name, String type) => FeastRow(
+  month: month,
+  day: day,
+  name: name,
+  feastType: type,
+  addedYear: null,
+  removedYear: null,
+);
 
 LiturgicalEngineImpl _engine(List<FeastRow> rows) {
   return LiturgicalEngineImpl(

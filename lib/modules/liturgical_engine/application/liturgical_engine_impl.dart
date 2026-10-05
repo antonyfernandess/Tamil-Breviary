@@ -362,12 +362,18 @@ class LiturgicalEngineImpl implements LiturgicalEngine {
       anchors.ashWednesday,
       date,
     );
-    final celebrationKey = switch (daysAfterAsh) {
-      1 => 'after_ash_wednesday_thursday',
-      2 => 'after_ash_wednesday_friday',
-      3 => 'after_ash_wednesday_saturday',
-      _ => '${_seasonKey(season)}_${isSunday ? 'sunday' : 'feria'}',
-    };
+    // Monday-Wednesday of Holy Week lie between Palm Sunday and Holy
+    // Thursday. They belong to no numbered week of Lent.
+    final isHolyWeekWeekday =
+        date.isAfter(anchors.palmSunday) && date.isBefore(anchors.holyThursday);
+    final celebrationKey = isHolyWeekWeekday
+        ? 'holy_week_feria'
+        : switch (daysAfterAsh) {
+            1 => 'after_ash_wednesday_thursday',
+            2 => 'after_ash_wednesday_friday',
+            3 => 'after_ash_wednesday_saturday',
+            _ => '${_seasonKey(season)}_${isSunday ? 'sunday' : 'feria'}',
+          };
 
     return LiturgicalDay(
       date: date,
@@ -381,7 +387,7 @@ class LiturgicalEngineImpl implements LiturgicalEngine {
         isHolySaturday: LiturgicalDate.daysBetween(date, anchors.easter) == 1,
       ),
       optionalMemorials: optionalMemorials,
-      weekOfSeason: weekOfSeason,
+      weekOfSeason: isHolyWeekWeekday ? null : weekOfSeason,
     );
   }
 

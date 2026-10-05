@@ -418,6 +418,10 @@ String _celebrationTitle(
       return _sundayName(day, week, strings);
     }
 
+    if (key == 'holy_week_feria') {
+      return strings.weekdayOfHolyWeek(weekday);
+    }
+
     if (key.endsWith('_feria')) {
       if (week == null) return strings.weekdayInSeason(weekday, season);
       return strings.weekOfSeason(weekday, _number(week, localeName), season);

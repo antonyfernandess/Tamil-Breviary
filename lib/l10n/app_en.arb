@@ -36,6 +36,12 @@
       "season": {}
     }
   },
+  "weekdayOfHolyWeek": "{weekday} of Holy Week",
+  "@weekdayOfHolyWeek": {
+    "placeholders": {
+      "weekday": {}
+    }
+  },
   "advent": "Advent",
   "christmasTime": "Christmas Time",
   "lent": "Lent",

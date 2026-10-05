@@ -36,6 +36,12 @@
       "season": {}
     }
   },
+  "weekdayOfHolyWeek": "புனித வாரம் - {weekday}",
+  "@weekdayOfHolyWeek": {
+    "placeholders": {
+      "weekday": {}
+    }
+  },
   "advent": "திருவருகைக் காலம்",
   "christmasTime": "கிறிஸ்து பிறப்புக் காலம்",
   "lent": "தவக்காலம்",

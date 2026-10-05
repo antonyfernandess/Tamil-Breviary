@@ -70,6 +70,11 @@ class AppLocalizationsTa extends AppLocalizations {
   }
 
   @override
+  String weekdayOfHolyWeek(Object weekday) {
+    return 'புனித வாரம் - $weekday';
+  }
+
+  @override
   String get advent => 'திருவருகைக் காலம்';
 
   @override
